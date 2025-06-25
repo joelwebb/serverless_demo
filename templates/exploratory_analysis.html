@@ -1,0 +1,91 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Exploratory Data Analysis{% endblock %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Exploratory Data Analysis</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Analysis Report</h5>
+                        <button class="btn btn-success float-right" onclick="downloadHTMLReport()">
+                            <i class="feather icon-download"></i> Download HTML Report
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Summary Statistics</h6>
+                                <table class="table">
+                                    <tr><td>Total Records</td><td>1,250</td></tr>
+                                    <tr><td>Average Amount</td><td>$165.50</td></tr>
+                                    <tr><td>Most Common CDT</td><td>D1110</td></tr>
+                                    <tr><td>Date Range</td><td>Jan 2024 - Dec 2024</td></tr>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Distribution Chart</h6>
+                                <div style="height: 200px; background: #f8f9fa; border: 1px solid #dee2e6; display: flex; align-items: center; justify-content: center;">
+                                    Chart Placeholder
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function downloadHTMLReport() {
+    const reportContent = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Exploratory Data Analysis Report</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1 { color: #333; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; }
+        </style>
+    </head>
+    <body>
+        <h1>Exploratory Data Analysis Report</h1>
+        <h2>Summary Statistics</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>Total Records</td><td>1,250</td></tr>
+            <tr><td>Average Amount</td><td>$165.50</td></tr>
+            <tr><td>Most Common CDT</td><td>D1110</td></tr>
+            <tr><td>Date Range</td><td>Jan 2024 - Dec 2024</td></tr>
+        </table>
+        <p>Generated on: ${new Date().toLocaleDateString()}</p>
+    </body>
+    </html>`;
+    
+    const blob = new Blob([reportContent], { type: 'text/html;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'exploratory_analysis_report.html';
+    link.click();
+}
+</script>
+{% endblock %}

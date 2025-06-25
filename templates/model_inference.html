@@ -1,0 +1,140 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Model Inference{% endblock %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Model Inference</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Input Form</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="predictionForm">
+                            <div class="form-group">
+                                <label for="patient_uuid">Patient UUID (Optional)</label>
+                                <input type="text" class="form-control" id="patient_uuid" name="patient_uuid" placeholder="Enter patient UUID">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cdt_code">CDT Code (Optional)</label>
+                                <input type="text" class="form-control" id="cdt_code" name="cdt_code" placeholder="Enter CDT code">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="amount">Amount (Optional)</label>
+                                <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount" step="0.01">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="notes">Notes (Optional)</label>
+                                <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Enter notes"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="date">Date (Optional)</label>
+                                <input type="date" class="form-control" id="date" name="date">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="feather icon-zap"></i> Submit Prediction
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Prediction Result</h5>
+                    </div>
+                    <div class="card-body" id="resultCard">
+                        <div class="text-center text-muted">
+                            <i class="feather icon-info" style="font-size: 48px;"></i>
+                            <p class="mt-3">Submit the form to see prediction results</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('predictionForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Show spinner
+    const resultCard = document.getElementById('resultCard');
+    resultCard.innerHTML = `
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <p class="mt-3">Generating prediction...</p>
+        </div>
+    `;
+    
+    // Get form data
+    const formData = new FormData(this);
+    
+    // Make prediction request
+    fetch('/api/predict', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Show results
+        resultCard.innerHTML = `
+            <div class="text-center">
+                <div class="alert alert-${data.result === 'High Risk' ? 'danger' : 'success'} mb-3">
+                    <h4><i class="feather icon-${data.result === 'High Risk' ? 'alert-triangle' : 'check-circle'}"></i> ${data.result}</h4>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h6>Confidence Score</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-${data.result === 'High Risk' ? 'danger' : 'success'}" 
+                                 style="width: ${data.confidence * 100}%">
+                                ${(data.confidence * 100).toFixed(1)}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-left">
+                    <h6>Key Factors:</h6>
+                    <ul class="list-unstyled">
+                        ${data.factors.map(factor => `<li><i class="feather icon-check-circle text-success"></i> ${factor}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+        `;
+    })
+    .catch(error => {
+        resultCard.innerHTML = `
+            <div class="alert alert-danger">
+                <h6><i class="feather icon-x-circle"></i> Error</h6>
+                <p>Failed to generate prediction: ${error.message}</p>
+            </div>
+        `;
+    });
+});
+</script>
+{% endblock %}

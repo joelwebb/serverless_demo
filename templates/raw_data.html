@@ -1,0 +1,99 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Raw Data{% endblock %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Raw Data</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Data Table</h5>
+                        <button class="btn btn-primary float-right" onclick="downloadCSV()">
+                            <i class="feather icon-download"></i> Download CSV
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Patient UUID</th>
+                                        <th>CDT Code</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>UUID-001</td>
+                                        <td>D1110</td>
+                                        <td>$125.00</td>
+                                        <td>2024-01-15</td>
+                                        <td>Routine cleaning</td>
+                                    </tr>
+                                    <tr>
+                                        <td>UUID-002</td>
+                                        <td>D2140</td>
+                                        <td>$280.00</td>
+                                        <td>2024-01-16</td>
+                                        <td>Amalgam restoration</td>
+                                    </tr>
+                                    <tr>
+                                        <td>UUID-003</td>
+                                        <td>D0150</td>
+                                        <td>$85.00</td>
+                                        <td>2024-01-17</td>
+                                        <td>Comprehensive exam</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function downloadCSV() {
+    const table = document.getElementById('dataTable');
+    let csvContent = '';
+    
+    // Get headers
+    const headers = [];
+    table.querySelectorAll('thead th').forEach(th => headers.push(th.textContent));
+    csvContent += headers.join(',') + '\n';
+    
+    // Get rows
+    table.querySelectorAll('tbody tr').forEach(row => {
+        const rowData = [];
+        row.querySelectorAll('td').forEach(td => rowData.push(td.textContent));
+        csvContent += rowData.join(',') + '\n';
+    });
+    
+    // Download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'raw_data.csv';
+    link.click();
+}
+</script>
+{% endblock %}

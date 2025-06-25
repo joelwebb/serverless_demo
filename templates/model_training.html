@@ -1,0 +1,143 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Model Training{% endblock %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Model Training</h5>
+                        </div>
+                        <div class="page-header-breadcrumb">
+                            <button class="btn btn-danger" onclick="triggerRetraining()" id="retrainBtn">
+                                <i class="feather icon-refresh-cw"></i> Trigger Retraining
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Trained Models</h5>
+                        <button class="btn btn-primary float-right" onclick="downloadModelMetrics()">
+                            <i class="feather icon-download"></i> Download CSV
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="modelTable">
+                                <thead>
+                                    <tr>
+                                        <th>Model Name</th>
+                                        <th>Version</th>
+                                        <th>Accuracy</th>
+                                        <th>Precision</th>
+                                        <th>Recall</th>
+                                        <th>F1 Score</th>
+                                        <th>Training Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Random Forest v1</td>
+                                        <td>1.0</td>
+                                        <td>0.892</td>
+                                        <td>0.885</td>
+                                        <td>0.901</td>
+                                        <td>0.893</td>
+                                        <td>2024-01-15</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>XGBoost v2</td>
+                                        <td>2.1</td>
+                                        <td>0.905</td>
+                                        <td>0.912</td>
+                                        <td>0.897</td>
+                                        <td>0.904</td>
+                                        <td>2024-01-20</td>
+                                        <td><span class="badge badge-warning">Testing</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Neural Network v1</td>
+                                        <td>1.5</td>
+                                        <td>0.876</td>
+                                        <td>0.871</td>
+                                        <td>0.882</td>
+                                        <td>0.876</td>
+                                        <td>2024-01-10</td>
+                                        <td><span class="badge badge-secondary">Deprecated</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function downloadModelMetrics() {
+    const table = document.getElementById('modelTable');
+    let csvContent = '';
+    
+    // Get headers
+    const headers = [];
+    table.querySelectorAll('thead th').forEach(th => headers.push(th.textContent));
+    csvContent += headers.join(',') + '\n';
+    
+    // Get rows
+    table.querySelectorAll('tbody tr').forEach(row => {
+        const rowData = [];
+        row.querySelectorAll('td').forEach(td => {
+            // Clean badge text
+            let text = td.textContent.trim();
+            rowData.push(text);
+        });
+        csvContent += rowData.join(',') + '\n';
+    });
+    
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'model_metrics.csv';
+    link.click();
+}
+
+function triggerRetraining() {
+    const btn = document.getElementById('retrainBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="feather icon-loader"></i> Starting...';
+    
+    fetch('/api/trigger-retraining', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Retraining job started: ' + data.job_id);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="feather icon-refresh-cw"></i> Trigger Retraining';
+    })
+    .catch(error => {
+        alert('Error starting retraining: ' + error);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="feather icon-refresh-cw"></i> Trigger Retraining';
+    });
+}
+</script>
+{% endblock %}

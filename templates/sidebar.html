@@ -1,19 +1,31 @@
 <ul class="nav pcoded-inner-navbar">
     <li class="nav-item pcoded-menu-caption" style="text-transform: capitalize;">
-        <label>Game Options</label>
+        <label>Data Analysis</label>
     </li>
     {% if 'username' in session %}
     <li class="nav-item">
-        <a href="{{ url_for('create_new_game') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-plus-circle"></i></span><span
-                class="pcoded-mtext">New Game</span></a>
+        <a href="{{ url_for('raw_data') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-database"></i></span><span
+                class="pcoded-mtext">Raw Data</span></a>
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#restoreGameModal"><span class="pcoded-micon"><i class="feather icon-refresh-cw"></i></span><span
-                class="pcoded-mtext">Restore Game</span></a>
+        <a href="{{ url_for('exploratory_analysis') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-bar-chart-2"></i></span><span
+                class="pcoded-mtext">Exploratory Analysis</span></a>
     </li>
     <li class="nav-item">
-        <a href="{{ url_for('select_saved_game') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-save"></i></span><span
-                class="pcoded-mtext">Select Saved Game</span></a>
+        <a href="{{ url_for('data_drift') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-trending-up"></i></span><span
+                class="pcoded-mtext">Data Drift Report</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('model_training') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-cpu"></i></span><span
+                class="pcoded-mtext">Model Training</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('model_inference') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-zap"></i></span><span
+                class="pcoded-mtext">Model Inference</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('feature_importance') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-target"></i></span><span
+                class="pcoded-mtext">Feature Importance</span></a>
     </li>
     {% else %}
     <li class="nav-item">
