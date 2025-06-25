@@ -30,19 +30,24 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <h6>Summary Statistics</h6>
+                                <h6>Dataset Statistics</h6>
                                 <table class="table">
-                                    <tr><td>Total Records</td><td>1,250</td></tr>
-                                    <tr><td>Average Amount</td><td>$165.50</td></tr>
-                                    <tr><td>Most Common CDT</td><td>D1110</td></tr>
-                                    <tr><td>Date Range</td><td>Jan 2024 - Dec 2024</td></tr>
+                                    <tr><td>Number of variables</td><td>7</td></tr>
+                                    <tr><td>Number of observations</td><td>50000</td></tr>
+                                    <tr><td>Missing cells</td><td>0</td></tr>
+                                    <tr><td>Missing cells (%)</td><td>0.0%</td></tr>
+                                    <tr><td>Duplicate rows</td><td>0</td></tr>
+                                    <tr><td>Duplicate rows (%)</td><td>0.0%</td></tr>
+                                    <tr><td>Total size in memory</td><td>2.3 MiB</td></tr>
+                                    <tr><td>Average record size in memory</td><td>49.0 B</td></tr>
                                 </table>
                             </div>
                             <div class="col-md-6">
-                                <h6>Distribution Chart</h6>
-                                <div style="height: 200px; background: #f8f9fa; border: 1px solid #dee2e6; display: flex; align-items: center; justify-content: center;">
-                                    Chart Placeholder
-                                </div>
+                                <h6>Fraud Analysis Chart</h6>
+                                <img src="{{ url_for('static', filename='images/fraud_chart.png') }}" 
+                                     alt="Fraud Analysis Chart" 
+                                     class="img-fluid" 
+                                     style="max-height: 300px; width: 100%; object-fit: contain;">
                             </div>
                         </div>
                     </div>
