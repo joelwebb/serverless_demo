@@ -1,0 +1,66 @@
+        name: dev
+        on:
+          push:
+            branches-ignore:
+              - prod
+
+        jobs:
+          deploy:
+            runs-on: ubuntu-latest
+
+            steps:
+              - name: Checking out branch
+                uses: actions/checkout@v4.1.1
+
+              - name: Set up python
+                uses: actions/setup-python@v5
+                with:
+                  python-version: "3.11"
+
+              - name: Restore cached virtualenv
+                uses: actions/cache/restore@v4
+                with:
+                  key: venv-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+                  path: venv
+
+              - name: Sets up virtualenv
+                run: |
+                  pip install virtualenv
+                  virtualenv venv
+                  source venv/bin/activate
+                  export VIRTUAL_ENV=$PWD/venv
+                  echo $VIRTUAL_ENV
+                  pip install uv
+                  uv pip install -r requirements.txt
+                  uv pip install zappa
+                  uv pip install pytest
+                  uv pip install pytest-env
+                  pip install "git+https://${{ secrets.GHA_VITALITYTOOLS_TOKEN }}@github.com/Vitality-Robotics-Inc/vitality-tools.git@v1.0.2#subdirectory=vitality_aws_tools"
+                  pip install "git+https://${{ secrets.GHA_VITALITYTOOLS_TOKEN }}@github.com/Vitality-Robotics-Inc/vitality-tools.git@v1.0.2#subdirectory=vitality_dynamo_tools"
+                  pip install "git+https://${{ secrets.GHA_VITALITYTOOLS_TOKEN }}@github.com/Vitality-Robotics-Inc/vitality-tools.git@v1.0.2#subdirectory=vitality_secrets_manager"
+
+
+              - name: Saved cached virtualenv
+                uses: actions/cache/save@v4
+                with:
+                    key: venv-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+                    path: venv
+
+              - name: Configuring AWS Credentials
+                run: |
+                  source venv/bin/activate
+                  aws configure set region us-east-1 --profile default
+                  aws configure set output json --profile default
+                  aws configure set aws_access_key_id ${{ secrets.VITALITY_ADMIN_AWS_KEY_CHANGE_LATER }} --profile default
+                  aws configure set aws_secret_access_key ${{ secrets.VITALITY_ADMIN_SECRET_KEY_CHANGE_LATER }} --profile default
+
+              - name: Deploy on commit
+                run: |
+                  source venv/bin/activate
+                  export ENV="dev"
+                  zappa update dev
+                  echo "Deployed to dev on commit."
+
+
+              - name: Print Success Message
+                run: echo "Deploy Steps Complete."
