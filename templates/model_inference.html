@@ -119,10 +119,32 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
     .then(response => response.json())
     .then(data => {
         // Show results
+        let alertClass, iconClass, progressClass, classification, tooltipText;
+        
+        if (data.result === 'High Risk') {
+            alertClass = 'danger';
+            iconClass = 'alert-triangle';
+            progressClass = 'danger';
+            classification = 'Fraud';
+            tooltipText = 'This prediction was classified as fraudulent based on patterns detected in the submitted data that match known fraud indicators in our training model.';
+        } else if (data.result === 'Medium Risk') {
+            alertClass = 'warning';
+            iconClass = 'alert-circle';
+            progressClass = 'warning';
+            classification = 'Not Fraudulent';
+            tooltipText = 'This prediction shows moderate risk indicators but does not meet the threshold for fraud classification.';
+        } else {
+            alertClass = 'success';
+            iconClass = 'check-circle';
+            progressClass = 'success';
+            classification = 'Not Fraudulent';
+            tooltipText = 'This prediction was classified as not fraudulent because the submitted data does not match typical fraud patterns in our training model.';
+        }
+
         resultCard.innerHTML = `
             <div class="text-center">
-                <div class="alert alert-${data.result === 'High Risk' ? 'danger' : 'success'} mb-3">
-                    <h4><i class="feather icon-${data.result === 'High Risk' ? 'alert-triangle' : 'check-circle'}"></i> ${data.result}</h4>
+                <div class="alert alert-${alertClass} mb-3">
+                    <h4><i class="feather icon-${iconClass}"></i> ${data.result}</h4>
                     <small class="d-block mt-2">Model: ${data.model_used || 'Unknown'}</small>
                 </div>
                 <div class="row">
@@ -130,12 +152,12 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
                         <span>Classification</span>
                         <div class="mb-3">
                             <span style="color: black; font-size: 1.2em;">
-                                ${data.result === 'High Risk' ? 'Fraud' : 'Not Fraudulent'}
+                                ${classification}
                             </span>
                         </div>
                         <span>Confidence Score</span>
                         <div class="progress mb-3">
-                            <div class="progress-bar bg-${data.result === 'High Risk' ? 'danger' : 'success'}" 
+                            <div class="progress-bar bg-${progressClass}" 
                                  style="width: ${data.confidence * 100}%">
                                 ${(data.confidence * 100).toFixed(1)}%
                             </div>
@@ -144,7 +166,7 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
                 </div>
                 <div class="text-center mb-3">
                     <i class="feather icon-info text-info" style="font-size: 24px; cursor: pointer;" 
-                       title="${data.result === 'High Risk' ? 'This prediction was classified as fraudulent based on patterns detected in the submitted data that match known fraud indicators in our training model.' : 'This prediction was classified as not fraudulent because the submitted data does not match typical fraud patterns in our training model.'}"
+                       title="${tooltipText}"
                        data-toggle="tooltip" data-placement="bottom"></i>
                 </div>
             </div>

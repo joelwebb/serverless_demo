@@ -158,12 +158,20 @@ def predict():
         'tabular_classifier': 'Tabular Classifier'
     }
 
-    prediction = {
-        'result': 'High Risk' if random.random() > 0.5 else 'Low Risk',
-        'confidence': round(random.uniform(0.7, 0.95), 3),
-        'factors': ['Factor A', 'Factor B', 'Factor C'],
-        'model_used': model_names.get(model_type, 'Unknown Model')
-    }
+    if model_type == 'nlp_classifier':
+        prediction = {
+            'result': 'Medium Risk',
+            'confidence': 0.55,
+            'factors': ['Factor A', 'Factor B', 'Factor C'],
+            'model_used': model_names.get(model_type, 'Unknown Model')
+        }
+    else:
+        prediction = {
+            'result': 'High Risk' if random.random() > 0.5 else 'Low Risk',
+            'confidence': round(random.uniform(0.7, 0.95), 3),
+            'factors': ['Factor A', 'Factor B', 'Factor C'],
+            'model_used': model_names.get(model_type, 'Unknown Model')
+        }
 
     return prediction
 
