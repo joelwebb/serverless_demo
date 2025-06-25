@@ -142,17 +142,28 @@ def predict():
         return {'error': 'Not authenticated'}, 401
 
     # Get form data
+    model_type = request.form.get('model_type', '')
     patient_uuid = request.form.get('patient_uuid', '')
     cdt_code = request.form.get('cdt_code', '')
     amount = request.form.get('amount', '')
     notes = request.form.get('notes', '')
     date = request.form.get('date', '')
 
-    # Simulate prediction (replace with actual ML model)
+    if not model_type:
+        return {'error': 'Model type is required'}, 400
+
+    # Simulate prediction based on model type (replace with actual ML model)
+    model_names = {
+        'aws_nova': 'AWS Nova',
+        'nlp_classifier': 'NLP Note Classifier', 
+        'tabular_classifier': 'Tabular Classifier'
+    }
+    
     prediction = {
         'result': 'High Risk' if random.random() > 0.5 else 'Low Risk',
         'confidence': round(random.uniform(0.7, 0.95), 3),
-        'factors': ['Factor A', 'Factor B', 'Factor C']
+        'factors': ['Factor A', 'Factor B', 'Factor C'],
+        'model_used': model_names.get(model_type, 'Unknown Model')
     }
 
     return prediction

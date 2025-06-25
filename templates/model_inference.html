@@ -27,6 +27,16 @@
                     <div class="card-body">
                         <form id="predictionForm">
                             <div class="form-group">
+                                <label for="model_type">Model Type <span class="text-danger">*</span></label>
+                                <select class="form-control" id="model_type" name="model_type" required>
+                                    <option value="">Select a model...</option>
+                                    <option value="aws_nova">AWS Nova</option>
+                                    <option value="nlp_classifier">NLP Note Classifier</option>
+                                    <option value="tabular_classifier">Tabular Classifier</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
                                 <label for="patient_uuid">Patient UUID (Optional)</label>
                                 <input type="text" class="form-control" id="patient_uuid" name="patient_uuid" placeholder="Enter patient UUID">
                             </div>
@@ -80,6 +90,13 @@
 document.getElementById('predictionForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
+    // Validate model selection
+    const modelType = document.getElementById('model_type').value;
+    if (!modelType) {
+        alert('Please select a model type before submitting.');
+        return;
+    }
+    
     // Show spinner
     const resultCard = document.getElementById('resultCard');
     resultCard.innerHTML = `
@@ -87,7 +104,7 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
             <div class="spinner-border text-primary" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-            <p class="mt-3">Generating prediction...</p>
+            <p class="mt-3">Generating prediction with ${document.getElementById('model_type').selectedOptions[0].text}...</p>
         </div>
     `;
     
@@ -106,6 +123,7 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
             <div class="text-center">
                 <div class="alert alert-${data.result === 'High Risk' ? 'danger' : 'success'} mb-3">
                     <h4><i class="feather icon-${data.result === 'High Risk' ? 'alert-triangle' : 'check-circle'}"></i> ${data.result}</h4>
+                    <small class="d-block mt-2">Model: ${data.model_used || 'Unknown'}</small>
                 </div>
                 <div class="row">
                     <div class="col-12">
