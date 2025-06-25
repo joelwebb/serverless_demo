@@ -3,6 +3,9 @@ from datetime import datetime
 from functools import wraps
 import uuid
 import random
+# Read CSV data
+import csv
+import os
 
 app = Flask(__name__)
 app.secret_key = "fdaexeax233272d6b9d74dd3acb43b37a39d8f1abe17"
@@ -56,10 +59,6 @@ def data():
     if 'username' not in session:
         return redirect('/login')
 
-    # Read CSV data
-    import csv
-    import os
-
     csv_path = os.path.join('static', 'data', 'mock_data.csv')
     data_rows = []
     headers = []
@@ -70,7 +69,7 @@ def data():
             headers = next(reader, [])  # Get headers
             # Read first 1000 rows
             for i, row in enumerate(reader):
-                if i >= 1000:
+                if i >= 100:
                     break
                 data_rows.append(row)
     except FileNotFoundError:
@@ -155,10 +154,10 @@ def predict():
     # Simulate prediction based on model type (replace with actual ML model)
     model_names = {
         'aws_nova': 'AWS Nova',
-        'nlp_classifier': 'NLP Note Classifier', 
+        'nlp_classifier': 'NLP Note Classifier',
         'tabular_classifier': 'Tabular Classifier'
     }
-    
+
     prediction = {
         'result': 'High Risk' if random.random() > 0.5 else 'Low Risk',
         'confidence': round(random.uniform(0.7, 0.95), 3),
