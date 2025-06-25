@@ -1,0 +1,11 @@
+id: boss_one
+name: Clockwork Golem
+img: /static/bosses/images/clockwork_golem.png
+row: 2
+col: 2
+hp: 10000
+attack: 100
+defense: 50
+abilities:
+  - meteor_smash
+  - flame_barrier

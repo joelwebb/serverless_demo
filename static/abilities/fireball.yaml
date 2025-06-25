@@ -1,0 +1,6 @@
+name: Fireball
+description: "Attack all adjacent enemies with a fiery explosion."
+type: area_attack
+range: 1
+damage: 10
+target: enemies

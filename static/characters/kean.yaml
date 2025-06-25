@@ -1,0 +1,12 @@
+name: kean
+description: "Let my light guide you through the darkness"
+experience: 0
+img: static/assets/players/kean.png
+abilities:
+  - blinding_light
+  - holy_cross
+health_multiplier: 0.8
+attack_multiplier: 0.8
+defense_multiplier: 0.8
+magic_attack_multiplier: 2.8
+magic_defense_multiplier: 0.8

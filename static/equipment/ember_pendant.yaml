@@ -1,0 +1,4 @@
+name: ember pendant
+slot: weapon
+description: "A red pendant embued to add fire damage to your attack."
+attack: 5

@@ -1,0 +1,39 @@
+background: /static/maps/example.png
+
+music: /static/audio/background/1.mp3
+
+bosses:
+  - id: boss_one
+    name: Infernal Demon
+    img: /static/bosses/images/infernal_demon.png
+    row: 2
+    col: 2
+    hp: 1000
+    attack: 100
+    defense: 50
+
+enemies:
+  - id: enemy_one
+    img: static/enemies/ember/ember_alcolyte.png
+    row: 2
+    col: 2
+    hp: 100
+
+  - id: enemy_two
+    img: static/enemies/ember/ember_alcolyte.png
+    row: 0
+    col: 1
+    hp: 100
+
+terrain:
+  - type: spikes
+    damage: 15
+    row: 6
+    col: 2
+    img: /static/terrain/spikes.png
+
+  - type: poison
+    damage: 10
+    row: 6
+    col: 3
+    img: /static/terrain/poison.png

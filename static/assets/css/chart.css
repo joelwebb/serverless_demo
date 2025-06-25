@@ -1,0 +1,222 @@
+
+#bar_graph {
+  border-left: 4px solid #fff;
+}
+#bar_graph div {
+  padding: 10px 0px;
+  background: #2071f5;
+  margin: 10px 0;
+  color: #fff;
+  text-align: right;
+  overflow: hidden;
+  display: block;
+  width: 0%;
+}
+
+#bar_graph div p {
+  margin: 0;
+}
+
+/* bar chart lengths */
+@keyframes grow5 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 7.5%;
+    padding-right: 10px;
+    height:auto;
+  }
+}
+
+@keyframes grow10 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 10%;
+    padding-right: 10px;
+    height:auto;
+  }
+}
+
+@keyframes grow15 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 15%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow20 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 20%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow25 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 25%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow30 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 30%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow35 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 35%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow40 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 40%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow45 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 45%;
+    padding-right: 10px;
+  }
+}
+
+
+@keyframes grow50 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 50%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow55 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 55%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow60 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 60%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow65 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 65%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow70 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 70%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow75 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 75%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow80 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 80%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow85 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 85%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow90 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 90%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow95 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 95%;
+    padding-right: 10px;
+  }
+}
+
+@keyframes grow100 {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+    padding-right: 10px;
+  }
+}

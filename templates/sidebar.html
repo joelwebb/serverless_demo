@@ -1,0 +1,24 @@
+<ul class="nav pcoded-inner-navbar">
+    <li class="nav-item pcoded-menu-caption" style="text-transform: capitalize;">
+        <label>Game Options</label>
+    </li>
+    {% if 'username' in session %}
+    <li class="nav-item">
+        <a href="{{ url_for('create_new_game') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-plus-circle"></i></span><span
+                class="pcoded-mtext">New Game</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#restoreGameModal"><span class="pcoded-micon"><i class="feather icon-refresh-cw"></i></span><span
+                class="pcoded-mtext">Restore Game</span></a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ url_for('select_saved_game') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-save"></i></span><span
+                class="pcoded-mtext">Select Saved Game</span></a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+        <a href="/login" class="nav-link"><span class="pcoded-micon"><i class="feather icon-log-in"></i></span><span
+                class="pcoded-mtext">Login</span></a>
+    </li>
+    {% endif %}
+</ul>

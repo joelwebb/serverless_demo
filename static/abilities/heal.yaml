@@ -1,0 +1,6 @@
+name: Heal
+description: "Heal self and adjacent players."
+type: heal_adjacent
+range: 1
+heal: 15
+target: allies

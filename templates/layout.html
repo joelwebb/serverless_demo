@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<title>
+		Gridfall C
+	</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="">
+	<meta name="author" content="Vitality" />
+
+	<!-- Favicon icon -->
+	<link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon">
+
+	<!-- vendor css -->
+	<link rel="stylesheet" href="/static/assets/css/style.css">
+
+	<!-- Specific Page CSS goes HERE  -->
+	{% block stylesheets %}{% endblock stylesheets %}
+
+
+	<style>
+		.pcoded-navbar .pcoded-inner-navbar li a:hover {
+			color: rgba(255, 255, 255, 1);
+			box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+
+		}
+	</style>
+</head>
+
+<body class="">
+
+
+
+	<!-- start sidebar -->
+	<nav class="pcoded-navbar menupos-fixed menu-light ">
+            <div class="navbar-wrapper  ">
+                <div class="navbar-content scroll-div ">
+
+                    <div class="">
+                        <div class="main-menu-header">
+                            <img class="img-radius" src="{{ url_for('static', filename='images/logo_rm.png') }}" alt="User-Profile-Image">
+                            <div class="user-details">
+                                <div id="more-details">Gridfall Chronicles<i class="fa fa-caret-down"></i></div>
+                            </div>
+                        </div>
+                        <div class="collapse" id="nav-user-link">
+                            <ul class="list-unstyled">
+                                <li class="list-group-item"><a href="{{ url_for('profile') }}"><i class="feather icon-user m-r-5"></i>View Profile</a></li>
+                                <li class="list-group-item"><a href="{{ url_for('settings') }}"><i class="feather icon-settings m-r-5"></i>Settings</a></li>
+                                <li class="list-group-item"><a href="{{ url_for('logout') }}"><i class="feather icon-log-out m-r-5"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {% if active_page == 'dashboard' %}
+                        {% include "ingame_sidebar.html" %}
+                    {% else %}
+                        {% include "sidebar.html" %}
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+	<!-- [ sidebar menu ] end -->
+
+	<!-- [ Header ] start -->
+	<header class="navbar pcoded-header navbar-expand-lg navbar-light headerpos-fixed ">
+
+		<div class="m-header">
+			<a href="#!" class="mobile-menu" id="mobile-collapse" style="position:absolute; z-index: 10;"><span></span></a>
+			<a href="#!" class="b-brand">
+				<!-- ========   change your logo here   ============ -->
+				<img src="/static/images/logo_rm.png" alt="" class="logo" style="height:75px; width: 75px;">
+			</a>
+			<a href="#!" class="mob-toggler">
+				<i class="feather icon-more-vertical"></i>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav ms-auto">
+				<li>
+					<div class="dropdown drp-user">
+						<a href="#" class="dropdown-item"><i class="feather icon-lock"></i> Logout</a>
+
+					</div>
+				</li>
+			</ul>
+		</div>
+
+
+	</header>
+	<!-- [ Header ] end -->
+
+
+	<!-- start page content here -->
+	{% block content %}{% endblock content %}
+
+	<script src="/static/assets/js/plugins/popper.min.js"></script>
+	<script src="/static/assets/js/plugins/perfect-scrollbar.min.js"></script>
+	<script src="/static/assets/js/plugins/bootstrap.min.js"></script>
+	<script src="/static/assets/js/pcoded.js"></script>
+
+
+</body>
+
+</html>

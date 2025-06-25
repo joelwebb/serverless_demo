@@ -1,0 +1,12 @@
+name: Arin
+description: "From the darkness rises the ember blade"
+experience: 0
+img: static/assets/players/arin.png
+abilities:
+  - reflect
+  - heal_cross
+health_multiplier: 1.8
+attack_multiplier: 1.1
+defense_multiplier: 2.9
+magic_attack_multiplier: 1.1
+magic_defense_multiplier: 2.8
