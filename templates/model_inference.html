@@ -127,13 +127,13 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <h6>Classification</h6>
+                        <span>Classification</span>
                         <div class="mb-3">
-                            <strong style="color: black; font-size: 1.2em;">
+                            <span style="color: black; font-size: 1.2em;">
                                 ${data.result === 'High Risk' ? 'Fraud' : 'Not Fraudulent'}
-                            </strong>
+                            </span>
                         </div>
-                        <h6>Confidence Score</h6>
+                        <span>Confidence Score</span>
                         <div class="progress mb-3">
                             <div class="progress-bar bg-${data.result === 'High Risk' ? 'danger' : 'success'}" 
                                  style="width: ${data.confidence * 100}%">
@@ -143,7 +143,9 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
                     </div>
                 </div>
                 <div class="text-center mb-3">
-                    <i class="feather icon-info text-info" style="font-size: 24px;"></i>
+                    <i class="feather icon-info text-info" style="font-size: 24px; cursor: pointer;" 
+                       title="${data.result === 'High Risk' ? 'This prediction was classified as fraudulent based on patterns detected in the submitted data that match known fraud indicators in our training model.' : 'This prediction was classified as not fraudulent because the submitted data does not match typical fraud patterns in our training model.'}"
+                       data-toggle="tooltip" data-placement="bottom"></i>
                 </div>
             </div>
         `;
