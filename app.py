@@ -6,9 +6,6 @@ import random
 
 app = Flask(__name__)
 app.secret_key = "fdaexeax233272d6b9d74dd3acb43b37a39d8f1abe17"
-session = {}
-session['username'] = "demo"
-session['password'] = "demo"
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -53,14 +50,14 @@ def settings():
                            request=request)
 
 
-@app.route('/raw-data')
-def raw_data():
-    """Render the raw data page with table and download functionality."""
+@app.route('/data')
+def data():
+    """Render the data page with table and download functionality."""
     if 'username' not in session:
         return redirect('/login')
-    return render_template("raw_data.html",
+    return render_template("data.html",
                            username=session['username'],
-                           active_page='raw_data')
+                           active_page='data')
 
 
 @app.route('/exploratory-analysis')
