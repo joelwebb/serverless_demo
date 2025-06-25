@@ -10,21 +10,21 @@
             "s3transfer",
             "concurrent"
         ],
-        "project_name": "pharma_tech-serv",
+        "project_name": "joes-demo-app",
         "runtime": "python3.11",
-        "s3_bucket": "pharma-tech-serverless-app",
-        "domain": "app.draftmygrant.com",
+        "s3_bucket": "joes-demo-app",
+        "domain": "demo.joewebbphd.com",
         "slim_handler": true,
-        "certificate_arn": "arn:aws:acm:us-east-1:422715500939:certificate/2378171c-e886-410e-af76-9d81e0780ef1",
+        "certificate_arn": "arn:aws:acm:us-east-1:422715500939:certificate/b5f0e581-143b-43b8-8482-e854fb8b8361",
         "environment_variables": {
             "ENV": "prod"
         },
         "tags": {
-            "creator": "rohan.sardana",
-            "environment": "production",
+            "creator": "joe.webb",
+            "environment": "development",
             "lifecycle": "active",
-            "project": "pharma_tech",
-            "team": "vitality"
+            "project": "development",
+            "team": "joe.webb"
         }
     }
 }
