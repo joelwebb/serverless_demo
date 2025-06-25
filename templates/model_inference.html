@@ -127,6 +127,12 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        <h6>Classification</h6>
+                        <div class="mb-3">
+                            <strong style="color: black; font-size: 1.2em;">
+                                ${data.result === 'High Risk' ? 'Fraud' : 'Not Fraudulent'}
+                            </strong>
+                        </div>
                         <h6>Confidence Score</h6>
                         <div class="progress mb-3">
                             <div class="progress-bar bg-${data.result === 'High Risk' ? 'danger' : 'success'}" 
@@ -136,11 +142,8 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
                         </div>
                     </div>
                 </div>
-                <div class="text-left">
-                    <h6>Key Factors:</h6>
-                    <ul class="list-unstyled">
-                        ${data.factors.map(factor => `<li><i class="feather icon-check-circle text-success"></i> ${factor}</li>`).join('')}
-                    </ul>
+                <div class="text-center mb-3">
+                    <i class="feather icon-info text-info" style="font-size: 24px;"></i>
                 </div>
             </div>
         `;
