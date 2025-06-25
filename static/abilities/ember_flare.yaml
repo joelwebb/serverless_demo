@@ -1,6 +1,0 @@
-name: Ember Flare
-description: "Attack all adjacent enemies with an ember flare."
-type: area_attack
-range: 1
-damage: 10
-target: enemies

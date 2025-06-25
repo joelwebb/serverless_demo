@@ -2,7 +2,6 @@
     <li class="nav-item pcoded-menu-caption" style="text-transform: capitalize;">
         <label>Data Analysis</label>
     </li>
-    {% if 'username' in session %}
     <li class="nav-item">
         <a href="{{ url_for('raw_data') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-database"></i></span><span
                 class="pcoded-mtext">Raw Data</span></a>
@@ -27,10 +26,8 @@
         <a href="{{ url_for('feature_importance') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-target"></i></span><span
                 class="pcoded-mtext">Feature Importance</span></a>
     </li>
-    {% else %}
     <li class="nav-item">
         <a href="/login" class="nav-link"><span class="pcoded-micon"><i class="feather icon-log-in"></i></span><span
                 class="pcoded-mtext">Login</span></a>
     </li>
-    {% endif %}
 </ul>

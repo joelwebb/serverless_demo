@@ -4,7 +4,7 @@
 <head>
 
 	<title>
-		Gridfall C
+		Joe's Demo App
 	</title>
 
 	<meta charset="utf-8">
@@ -12,10 +12,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="description" content="" />
 	<meta name="keywords" content="">
-	<meta name="author" content="Vitality" />
+	<meta name="author" content="Joe" />
 
 	<!-- Favicon icon -->
-	<link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/static/images/logo.ico" type="image/x-icon">
 
 	<!-- vendor css -->
 	<link rel="stylesheet" href="/static/assets/css/style.css">
@@ -36,7 +36,6 @@
 <body class="">
 
 
-
 	<!-- start sidebar -->
 	<nav class="pcoded-navbar menupos-fixed menu-light ">
             <div class="navbar-wrapper  ">
@@ -44,9 +43,9 @@
 
                     <div class="">
                         <div class="main-menu-header">
-                            <img class="img-radius" src="{{ url_for('static', filename='images/logo_rm.png') }}" alt="User-Profile-Image">
+													<br>
                             <div class="user-details">
-                                <div id="more-details">Gridfall Chronicles<i class="fa fa-caret-down"></i></div>
+                                <div id="more-details">Joes Demo App<i class="fa fa-caret-down"></i></div>
                             </div>
                         </div>
                         <div class="collapse" id="nav-user-link">
@@ -58,11 +57,7 @@
                         </div>
                     </div>
 
-                    {% if active_page == 'dashboard' %}
-                        {% include "ingame_sidebar.html" %}
-                    {% else %}
-                        {% include "sidebar.html" %}
-                    {% endif %}
+										{% include "sidebar.html" %}
                 </div>
             </div>
         </nav>
@@ -74,8 +69,8 @@
 		<div class="m-header">
 			<a href="#!" class="mobile-menu" id="mobile-collapse" style="position:absolute; z-index: 10;"><span></span></a>
 			<a href="#!" class="b-brand">
-				<!-- ========   change your logo here   ============ -->
-				<img src="/static/images/logo_rm.png" alt="" class="logo" style="height:75px; width: 75px;">
+				<!-- ========    logo   ============ -->
+				<img src="/static/images/logo.png" alt="" class="logo" style="height:75px; width: 75px;">
 			</a>
 			<a href="#!" class="mob-toggler">
 				<i class="feather icon-more-vertical"></i>

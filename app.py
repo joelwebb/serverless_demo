@@ -2,41 +2,43 @@ from flask import Flask, redirect, request, render_template, url_for, session, m
 from datetime import datetime
 from functools import wraps
 import uuid
+import random
 
 app = Flask(__name__)
 app.secret_key = "fdaexeax233272d6b9d74dd3acb43b37a39d8f1abe17"
+session = {}
+session['username'] = "demo"
+session['password'] = "demo"
 
 
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        if username == "demo" and password == "Pa$$w@rd123*9!":
+        if username == "demo" and password == "demo":
             session['username'] = username
             return redirect('/dashboard')
     return render_template('login.html')
-
-
-@app.route('/home')
-def home():
-    if 'username' not in session:
-        return redirect('/login')
-    return render_template('home.html', username=session['username'])
 
 
 @app.route('/dashboard')
 def dashboard():
     if 'username' not in session:
         return redirect('/login')
-    return render_template('dashboard.html', 
-                         username=session['username'],
-                         active_page='dashboard')
+    return render_template('dashboard.html',
+                           username=session['username'],
+                           active_page='dashboard')
 
-@app.route('/')
-def index():
-    return redirect('/login')
 
+@app.route('/profile')
+def profile():
+    if 'username' not in session:
+        return redirect('/login')
+    return render_template('profile.html',
+                           username=session['username'],
+                           active_page='profile')
 
 
 @app.route('/settings')
@@ -50,91 +52,99 @@ def settings():
                            active_page='Settings',
                            request=request)
 
+
 @app.route('/raw-data')
 def raw_data():
     """Render the raw data page with table and download functionality."""
     if 'username' not in session:
         return redirect('/login')
-    return render_template("raw_data.html", 
-                         username=session['username'],
-                         active_page='raw_data')
+    return render_template("raw_data.html",
+                           username=session['username'],
+                           active_page='raw_data')
+
 
 @app.route('/exploratory-analysis')
 def exploratory_analysis():
     """Render the exploratory data analysis page."""
     if 'username' not in session:
         return redirect('/login')
-    return render_template("exploratory_analysis.html", 
-                         username=session['username'],
-                         active_page='exploratory_analysis')
+    return render_template("exploratory_analysis.html",
+                           username=session['username'],
+                           active_page='exploratory_analysis')
+
 
 @app.route('/data-drift')
 def data_drift():
     """Render the data drift report page."""
     if 'username' not in session:
         return redirect('/login')
-    return render_template("data_drift.html", 
-                         username=session['username'],
-                         active_page='data_drift')
+    return render_template("data_drift.html",
+                           username=session['username'],
+                           active_page='data_drift')
+
 
 @app.route('/model-training')
 def model_training():
     """Render the model training page with metrics table."""
     if 'username' not in session:
         return redirect('/login')
-    return render_template("model_training.html", 
-                         username=session['username'],
-                         active_page='model_training')
+    return render_template("model_training.html",
+                           username=session['username'],
+                           active_page='model_training')
+
 
 @app.route('/model-inference')
 def model_inference():
     """Render the model inference page with prediction form."""
     if 'username' not in session:
         return redirect('/login')
-    return render_template("model_inference.html", 
-                         username=session['username'],
-                         active_page='model_inference')
+    return render_template("model_inference.html",
+                           username=session['username'],
+                           active_page='model_inference')
+
 
 @app.route('/feature-importance')
 def feature_importance():
     """Render the feature importance page with charts."""
     if 'username' not in session:
         return redirect('/login')
-    return render_template("feature_importance.html", 
-                         username=session['username'],
-                         active_page='feature_importance')
+    return render_template("feature_importance.html",
+                           username=session['username'],
+                           active_page='feature_importance')
+
 
 @app.route('/api/predict', methods=['POST'])
 def predict():
     """Handle model inference API call."""
     if 'username' not in session:
         return {'error': 'Not authenticated'}, 401
-    
+
     # Get form data
     patient_uuid = request.form.get('patient_uuid', '')
     cdt_code = request.form.get('cdt_code', '')
     amount = request.form.get('amount', '')
     notes = request.form.get('notes', '')
     date = request.form.get('date', '')
-    
+
     # Simulate prediction (replace with actual ML model)
-    import random
     prediction = {
         'result': 'High Risk' if random.random() > 0.5 else 'Low Risk',
         'confidence': round(random.uniform(0.7, 0.95), 3),
         'factors': ['Factor A', 'Factor B', 'Factor C']
     }
-    
+
     return prediction
+
 
 @app.route('/api/trigger-retraining', methods=['POST'])
 def trigger_retraining():
     """Handle model retraining trigger."""
     if 'username' not in session:
         return {'error': 'Not authenticated'}, 401
-    
+
     # Simulate retraining trigger
     return {'status': 'Retraining job started', 'job_id': '12345'}
+
 
 @app.route('/logout')
 def logout():

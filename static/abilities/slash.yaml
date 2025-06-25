@@ -1,6 +1,0 @@
-name: Slash
-description: "Attack all adjacent enemies."
-type: area_attack
-range: 1
-damage: 10
-target: enemies

@@ -1,6 +1,0 @@
-name: Slash
-description: "Whirling attack that impacts all adjacent enemies and enemies within 2 tiles."
-type: area_attack
-range: 2
-damage: 10
-target: enemies

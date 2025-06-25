@@ -1,6 +1,0 @@
-name: Chain Heal
-description: "Heal self and chained players."
-type: chain_heal
-range: 1
-heal: 15
-target: allies
