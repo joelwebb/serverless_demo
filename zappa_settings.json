@@ -1,0 +1,30 @@
+{
+    "prod": {
+        "app_function": "app.app",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "exclude": [
+            "boto3",
+            "dateutil",
+            "botocore",
+            "s3transfer",
+            "concurrent"
+        ],
+        "project_name": "pharma_tech-serv",
+        "runtime": "python3.11",
+        "s3_bucket": "pharma-tech-serverless-app",
+        "domain": "app.draftmygrant.com",
+        "slim_handler": true,
+        "certificate_arn": "arn:aws:acm:us-east-1:422715500939:certificate/2378171c-e886-410e-af76-9d81e0780ef1",
+        "environment_variables": {
+            "ENV": "prod"
+        },
+        "tags": {
+            "creator": "rohan.sardana",
+            "environment": "production",
+            "lifecycle": "active",
+            "project": "pharma_tech",
+            "team": "vitality"
+        }
+    }
+}
