@@ -175,6 +175,7 @@ def logout():
     Returns:
         Redirect to login page
     """
+    session.clear()
     return redirect(url_for('login'))
 
 

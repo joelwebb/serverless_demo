@@ -1,7 +1,107 @@
+
 {% extends "layout.html" %}
 
-{% block title %}Login Game{% endblock %}
-
 {% block content %}
-<h2>Welcome to Gridfall!</h2>
-{% endblock %}
+<div class="auth-wrapper">
+    <div class="auth-content">
+        <div class="auth-bg">
+            <span class="r"></span>
+            <span class="r s"></span>
+            <span class="r s"></span>
+            <span class="r"></span>
+        </div>
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <h3 class="mb-4">Login</h3>
+                </div>
+                <form method="POST" action="/login">
+                    <div class="input-group mb-3">
+                        <input type="text" name="username" class="form-control" placeholder="Username" value="demo" required>
+                    </div>
+                    <div class="input-group mb-4">
+                        <input type="password" name="password" class="form-control" placeholder="Password" value="demo" required>
+                    </div>
+                    <button class="btn btn-primary shadow-2 mb-4" type="submit">Login</button>
+                </form>
+                <p class="mb-0 text-muted">Demo credentials: username = demo, password = demo</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.auth-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+}
+
+.auth-content {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    z-index: 1;
+}
+
+.auth-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.auth-bg .r {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 6s ease-in-out infinite;
+}
+
+.auth-bg .r.s {
+    left: auto;
+    right: 10%;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+}
+
+.input-group .form-control {
+    border-radius: 25px;
+    padding: 12px 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.btn-primary {
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+</style>
+{% endblock content %}
