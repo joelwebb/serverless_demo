@@ -73,45 +73,8 @@
 
 <script>
 function downloadDriftReport() {
-    const reportContent = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Data Drift Analysis Report</title>
-        <style>
-            body { font-family: Arial, sans-serif; margin: 20px; }
-            h1 { color: #333; }
-            .metric { background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px; }
-            .drift-score { font-size: 24px; font-weight: bold; }
-            .warning { color: #f0ad4e; }
-            .success { color: #5cb85c; }
-            .info { color: #5bc0de; }
-        </style>
-    </head>
-    <body>
-        <h1>Data Drift Analysis Report</h1>
-        <div class="metric">
-            <h3>Feature Drift Score</h3>
-            <span class="drift-score warning">0.23</span>
-            <p>Moderate drift detected in input features</p>
-        </div>
-        <div class="metric">
-            <h3>Target Drift Score</h3>
-            <span class="drift-score success">0.05</span>
-            <p>Low drift in target variable</p>
-        </div>
-        <div class="metric">
-            <h3>Overall Status</h3>
-            <span class="drift-score info">Stable</span>
-            <p>Model performance maintained</p>
-        </div>
-        <p>Generated on: ${new Date().toLocaleDateString()}</p>
-    </body>
-    </html>`;
-    
-    const blob = new Blob([reportContent], { type: 'text/html;charset=utf-8;' });
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
+    link.href = '/static/data/data_drift.html';
     link.download = 'data_drift_report.html';
     link.click();
 }
