@@ -1,0 +1,18 @@
+FROM public.ecr.aws/lambda/python:3.10
+#copies to the docker image
+COPY ./lambda ${LAMBDA_TASK_ROOT}/lambda 
+# COPY ./tmp ${LAMBDA_TASK_ROOT}/tmp 
+RUN pip3 install --upgrade pip
+RUN yum install gcc python3-devel -y
+RUN yum install -y mesa-libGL -y 
+RUN pip3 install ultralytics==8.0.208 opencv-python-headless==4.8.0.76 boto3==1.28.53 Pillow==10.0.1 pybboxes==0.1.6 imgaug==0.4.0 dill==0.3.7 slack-sdk==3.22.0
+RUN pip3 install openvino==2023.0.0 openvino-dev==2023.0.0
+# Copy your requirements.txt into the image
+# COPY requirements.txt /tmp/requirements.txt
+# # Install packages from the requirements.txt file
+# RUN xargs -a /tmp/requirements.txt yum install -y
+
+
+WORKDIR ${LAMBDA_TASK_ROOT}/lambda 
+# folder . pythonfile name . function name parsing event/context
+CMD [ "lambda.lambda_handler.handler"]
