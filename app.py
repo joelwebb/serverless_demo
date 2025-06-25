@@ -55,9 +55,34 @@ def data():
     """Render the data page with table and download functionality."""
     if 'username' not in session:
         return redirect('/login')
+    
+    # Read CSV data
+    import csv
+    import os
+    
+    csv_path = os.path.join('static', 'data', 'mock_data.csv')
+    data_rows = []
+    headers = []
+    
+    try:
+        with open(csv_path, 'r', newline='', encoding='utf-8') as csvfile:
+            reader = csv.reader(csvfile)
+            headers = next(reader, [])  # Get headers
+            # Read first 1000 rows
+            for i, row in enumerate(reader):
+                if i >= 1000:
+                    break
+                data_rows.append(row)
+    except FileNotFoundError:
+        # If file doesn't exist, use empty data
+        headers = ['Patient UUID', 'CDT Code', 'Amount', 'Date', 'Notes']
+        data_rows = []
+    
     return render_template("data.html",
                            username=session['username'],
-                           active_page='data')
+                           active_page='data',
+                           headers=headers,
+                           data_rows=data_rows)
 
 
 @app.route('/exploratory-analysis')
