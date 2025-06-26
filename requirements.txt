@@ -47,5 +47,5 @@ urllib3==1.26.12
 Werkzeug==2.2.2
 wsgi-request-logger==0.4.6
 WTForms==3.0.1
-zappa==0.54.2
+zappa==0.60.2
 zipp==3.8.1
