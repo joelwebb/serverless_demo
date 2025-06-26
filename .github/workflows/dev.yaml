@@ -54,8 +54,6 @@
                 run: |
                   source venv/bin/activate
                   export ENV="dev"
-                  zappa deploy dev
-                  zappa certify dev
                   zappa update dev
                   
                   echo "Deployed to dev on commit."
