@@ -169,6 +169,14 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
                        title="${tooltipText}"
                        data-toggle="tooltip" data-placement="bottom"></i>
                 </div>
+                ${data.nova_response ? `
+                <div class="mt-3">
+                    <h6>Prediction Response:</h6>
+                    <div class="alert alert-light">
+                        <small>${data.nova_response}</small>
+                    </div>
+                </div>
+                ` : ''}
             </div>
         `;
     })

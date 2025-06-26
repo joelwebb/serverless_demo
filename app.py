@@ -4,6 +4,7 @@ from functools import wraps
 import boto3
 import uuid
 import random
+import json
 # Read CSV data
 import csv
 import os
@@ -169,6 +170,30 @@ def predict():
             'confidence': 0.55,
             'factors': ['Factor A', 'Factor B', 'Factor C'],
             'model_used': model_names.get(model_type, 'Unknown Model')
+        }
+    elif model_type == 'aws_nova':
+        # Use call_nova function for AWS Nova predictions
+        prompt = f"""Analyze this medical transaction for potential fraud:
+Patient UUID: {patient_uuid}
+CDT Code: {cdt_code}
+Amount: ${amount}
+Date: {date}
+Notes: {notes}
+
+Please assess the fraud risk and provide a brief analysis."""
+        
+        nova_response = call_nova(prompt)
+        
+        # Generate basic prediction structure
+        confidence = round(random.uniform(0.7, 0.95), 3)
+        result = 'High Risk' if random.random() > 0.5 else 'Low Risk'
+        
+        prediction = {
+            'result': result,
+            'confidence': confidence,
+            'factors': ['Factor A', 'Factor B', 'Factor C'],
+            'model_used': model_names.get(model_type, 'Unknown Model'),
+            'nova_response': nova_response if isinstance(nova_response, str) else str(nova_response)
         }
     else:
         prediction = {
