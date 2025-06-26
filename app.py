@@ -1,6 +1,7 @@
 from flask import Flask, redirect, request, render_template, url_for, session, make_response
 from datetime import datetime
 from functools import wraps
+import boto3
 import uuid
 import random
 # Read CSV data
@@ -9,6 +10,10 @@ import os
 
 app = Flask(__name__)
 app.secret_key = "fdaexeax233272d6b9d74dd3acb43b37a39d8f1abe17"
+
+# Bedrock client & model
+bedrock_client = boto3.client('bedrock-runtime', region_name='us-east-1')
+MODEL_ID = 'amazon.nova-micro-v1:0'
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -195,6 +200,35 @@ def logout():
     """
     session.clear()
     return redirect(url_for('login'))
+
+
+def call_nova(prompt: str):
+    """Invoke Nova Pro with a single prompt; expect a JSON array or string."""
+    body = {
+        "messages": [{
+            "role": "user",
+            "content": [{
+                "text": prompt
+            }]
+        }],
+        "inferenceConfig": {
+            "max_new_tokens": 256,
+            "temperature": 0.2,
+            "top_p": 0.9,
+            "top_k": 50
+        }
+    }
+    resp = bedrock_client.invoke_model(modelId=MODEL_ID,
+                                       contentType='application/json',
+                                       accept='application/json',
+                                       body=json.dumps(body))
+    text = json.loads(
+        resp['body'].read())["output"]["message"]["content"][0]["text"]
+    # parse JSON if possible
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        return text.strip()
 
 
 if __name__ == "__main__":
