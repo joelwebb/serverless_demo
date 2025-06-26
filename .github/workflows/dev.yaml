@@ -35,10 +35,6 @@
                   uv pip install zappa
                   uv pip install pytest
                   uv pip install pytest-env
-                  pip install "git+https://${{ secrets.GHA_VITALITYTOOLS_TOKEN }}@github.com/Vitality-Robotics-Inc/vitality-tools.git@v1.0.2#subdirectory=vitality_aws_tools"
-                  pip install "git+https://${{ secrets.GHA_VITALITYTOOLS_TOKEN }}@github.com/Vitality-Robotics-Inc/vitality-tools.git@v1.0.2#subdirectory=vitality_dynamo_tools"
-                  pip install "git+https://${{ secrets.GHA_VITALITYTOOLS_TOKEN }}@github.com/Vitality-Robotics-Inc/vitality-tools.git@v1.0.2#subdirectory=vitality_secrets_manager"
-
 
               - name: Saved cached virtualenv
                 uses: actions/cache/save@v4
