@@ -4,13 +4,13 @@
 <br />
 <div align="center">
   <a href="#">
-    <img src="static/images/arch.png" alt="Logo">
+  
   </a>
 
-<h3 align="center">Fraud Detection Analytics Dashboard</h3>
+<h3 align="center">ML based Fraud Detection Analytics Dashboard</h3>
 
   <p align="center">
-    Demo application prepared for Arch Systems showcasing ML fraud detection capabilities
+    Demo application prepared to showcasing ML fraud detection capabilities
     <br />
     <a href="https://demo.joewebbphd.com"><strong>Live Demo Available »</strong></a>
     <br />
