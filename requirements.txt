@@ -1,4 +1,6 @@
-boto3
+scikit-learn
+joblib
 Flask
 python-dotenv
 zappa==0.60.2
+pandas
