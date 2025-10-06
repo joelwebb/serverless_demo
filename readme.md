@@ -7,10 +7,10 @@
   
   </a>
 
-<h3 align="center">ML based Fraud Detection Analytics Dashboard</h3>
+<h3 align="center">ML analytics Dashboard</h3>
 
   <p align="center">
-    Demo application prepared to showcasing ML fraud detection capabilities
+    Demo application prepared to show ML capabilities
     <br />
     <a href="https://demo.joewebbphd.com"><strong>Live Demo Available »</strong></a>
     <br />
@@ -63,7 +63,7 @@ This is a Python Flask web application built with the following architecture:
 - **Styling:** Bootstrap 4 with custom CSS
 - **Charts:** ApexCharts for data visualization
 - **Authentication:** Session-based authentication
-- **Data Processing:** CSV handling for mock fraud data
+- **Data Processing:** CSV handling for mock data
 
 **Key Flask Routes:**
 - `/dashboard` - Main analytics dashboard
