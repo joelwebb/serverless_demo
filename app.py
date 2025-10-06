@@ -128,7 +128,7 @@ def predict():
             'date', 'price', 'grade', 'grading_company', 'year_sold',
             'month_sold', 'day_sold', 'days_since_release', 'is_holiday_season',
              'variety_encoded', 'grading_company_encoded',
-            'card_number_len', 'card_number_numeric', 'num_subjects', 'is_gold',
+             'card_number_numeric', 'num_subjects', 'is_gold',
             'is_silver', 'is_prizm', 'is_auto', 'is_psa', 'is_bgs', 'grade_is_high',
             'grade_x_brand', 'grade_x_year', 'log_price', 'is_outlier',
             'price_tier', 'sale_count_per_card', 'avg_price_per_card',
