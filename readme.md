@@ -36,18 +36,18 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-This repository contains a comprehensive fraud detection analytics dashboard demo prepared specifically for Arch Systems. The application demonstrates machine learning capabilities for fraud detection, featuring data analysis, model training, inference, and monitoring capabilities.
+This repository contains a comprehensive trading card analytics demo prepared ALT.XYZ. The application demonstrates heuristics and machine learning capabilities for trading card analysis, model training, inference, and monitoring capabilities.
 
 **Key Features:**
-- Interactive fraud detection dashboard
-- Multiple ML model implementations (AWS Nova, NLP Classifier, Tabular Classifier)
+- Live deployed web applicaiton with interactive dashboard
+- Multiple analytics implementations: heuristics (non-ML), Generative AI (AWS Nova), and classical ML (xgboost)
 - Real-time model inference capabilities
-- Data drift monitoring and analysis
+- Data monitoring and analysis
 - Feature importance visualization
 - Exploratory data analysis tools
 
 ## Live Demo
-🌐 **Access the live demo at: [demo.joewebbphd.com](https://demo.joewebbphd.com)**
+🌐 **Access the live demo at: [alt.demo.joewebbphd.com](https://alt.demo.joewebbphd.com)**
 
 **Demo Credentials:**
 - Username: `demo`
@@ -161,11 +161,11 @@ For detailed information about the ML components, see the [Model Development REA
 
 <!-- LICENSE -->
 ## License
-All rights reserved. Demo prepared for Arch Systems evaluation.
+All rights reserved. Demo prepared for ALT.XYZ.
 
 <!-- CONTACT -->
 ## Contact
-Joe Webb - joe.webb@vitalityrobots.com
+Joe Webb - josephlawrencewebb@gmail.com
 
 **Live Demo:** [demo.joewebbphd.com](https://demo.joewebbphd.com)
 

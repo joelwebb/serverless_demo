@@ -8,6 +8,7 @@ import json
 # Read CSV data
 import csv
 import os
+import joblib
 
 app = Flask(__name__)
 app.secret_key = "fdaexeax233272d6b9d74dd3acb43b37a39d8f1abe17"
@@ -16,6 +17,9 @@ app.secret_key = "fdaexeax233272d6b9d74dd3acb43b37a39d8f1abe17"
 bedrock_client = boto3.client('bedrock-runtime', region_name='us-east-1')
 MODEL_ID = 'amazon.nova-micro-v1:0'
 
+# --- Load models once (outside routes) ---
+rf_model = joblib.load("model_development/random_forest_model.joblib")
+xgb_model = joblib.load("model_development/xgboost_model.joblib")
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
@@ -139,71 +143,49 @@ def feature_importance():
                            username=session['username'],
                            active_page='feature_importance')
 
-
-@app.route('/api/predict', methods=['POST'])
+@app.route("/api/predict", methods=["POST"])
 def predict():
-    """Handle model inference API call."""
-    if 'username' not in session:
-        return {'error': 'Not authenticated'}, 401
+    try:
+        # Get form inputs
+        model_type = request.form.get("model_type")
+        amount = request.form.get("amount", type=float)
+        grade = request.form.get("grade", type=float)
+        variety_encoded = request.form.get("variety_encoded", type=int)
+        year_sold = request.form.get("year_sold", type=int)
+        sale_count_per_card = request.form.get("sale_count_per_card", type=float)
+        avg_price_per_card = request.form.get("avg_price_per_card", type=float)
+        std_price_per_card = request.form.get("std_price_per_card", type=float)
 
-    # Get form data
-    model_type = request.form.get('model_type', '')
-    patient_uuid = request.form.get('patient_uuid', '')
-    cdt_code = request.form.get('cdt_code', '')
-    amount = request.form.get('amount', '')
-    notes = request.form.get('notes', '')
-    date = request.form.get('date', '')
+        # Build feature vector (mock example)
+        input_features = pd.DataFrame([{
+            "avg_price_per_card": avg_price_per_card or 50,
+            "std_price_per_card": std_price_per_card or 10,
+            "year_sold": year_sold or 2023,
+            "grade": grade or 9,
+            "variety_encoded": variety_encoded or 0,
+            "sale_count_per_card": sale_count_per_card or 5
+        }])
 
-    if not model_type:
-        return {'error': 'Model type is required'}, 400
+        # Select model
+        if model_type == "rf":
+            pred = rf_model.predict(input_features)[0]
+            model_used = "Random Forest"
+        elif model_type == "xgb":
+            pred = xgb_model.predict(input_features)[0]
+            model_used = "XGBoost"
+        else:
+            return jsonify({"error": "Invalid model type"}), 400
 
-    # Simulate prediction based on model type (replace with actual ML model)
-    model_names = {
-        'aws_nova': 'AWS Nova',
-        'nlp_classifier': 'NLP Note Classifier',
-        'tabular_classifier': 'Tabular Classifier'
-    }
+        # Basic confidence proxy (could be improved)
+        confidence = np.clip(1 - (np.std([pred]) / (pred + 1e-6)), 0.0, 1.0)
 
-    if model_type == 'nlp_classifier':
-        prediction = {
-            'result': 'Medium Risk',
-            'confidence': 0.55,
-            'factors': ['Factor A', 'Factor B', 'Factor C'],
-            'model_used': model_names.get(model_type, 'Unknown Model')
-        }
-    elif model_type == 'aws_nova':
-        # Use call_nova function for AWS Nova predictions
-        prompt = f"""Analyze this medical transaction for potential fraud:
-Patient UUID: {patient_uuid}
-CDT Code: {cdt_code}
-Amount: ${amount}
-Date: {date}
-Notes: {notes}
-
-Please assess the fraud risk and provide a brief analysis."""
-        
-        nova_response = call_nova(prompt)
-        
-        # Generate basic prediction structure
-        confidence = round(random.uniform(0.7, 0.95), 3)
-        result = 'High Risk' if random.random() > 0.5 else 'Low Risk'
-        
-        prediction = {
-            'result': result,
-            'confidence': confidence,
-            'factors': ['Factor A', 'Factor B', 'Factor C'],
-            'model_used': model_names.get(model_type, 'Unknown Model'),
-            'nova_response': nova_response if isinstance(nova_response, str) else str(nova_response)
-        }
-    else:
-        prediction = {
-            'result': 'High Risk' if random.random() > 0.5 else 'Low Risk',
-            'confidence': round(random.uniform(0.7, 0.95), 3),
-            'factors': ['Factor A', 'Factor B', 'Factor C'],
-            'model_used': model_names.get(model_type, 'Unknown Model')
-        }
-
-    return prediction
+        return jsonify({
+            "result": f"${pred:,.2f}",
+            "confidence": float(confidence),
+            "model_used": model_used
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route('/api/trigger-retraining', methods=['POST'])
